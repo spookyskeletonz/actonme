@@ -42,10 +42,12 @@ e.g POST /api/complete/1
 returns json of all incomplete action items. accepts optional query "orderby" in the same format as actionitems endpoint
 e.g GET /api/incomplete/?orderby=due
 
-* POST /api/complete/{id}
+* POST /api/incomplete/{id}
 
 updates specific action item to set completed to false
 e.g POST /api/incomplete/2
+
+### /DELETE/
 
 * POST /api/delete/{id}
 
