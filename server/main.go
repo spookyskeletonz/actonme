@@ -40,7 +40,7 @@ func main() {
 			deleteActionItems.POST("/:id", deleteActionItem)
 		}
 	}
-	r.Run(":3001")
+	r.Run(":9000")
 }
 
 func initDb() *gorp.DbMap {
