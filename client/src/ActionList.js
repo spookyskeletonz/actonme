@@ -13,14 +13,17 @@ class ActionList extends Component {
 
   componentDidMount() {
     axios.get('api/actionitems/').then(res => {
-      console.log(res);
+      const actionItems = res.data;
+      this.setState({ actionItems });
     }) 
   }
 
   render() {
     return(
       <ul>
-      <li>placeholder</li>
+        {
+          actionItems.map(item => <li {item.Id}>{item.Action}: {item.Actor}</li>)
+        }
       </ul>
     );
   }
