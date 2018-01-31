@@ -22,7 +22,7 @@ class ActionList extends Component {
     return(
       <ul>
         {
-          actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
+          this.state.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
         }
       </ul>
     );
