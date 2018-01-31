@@ -22,9 +22,11 @@ class ActionList extends Component {
     return(
       <ul>
         {
-          actionItems.map(item => <li {item.Id}>{item.Action}: {item.Actor}</li>)
+          actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
         }
       </ul>
     );
   }
 }
+
+export default ActionList;
