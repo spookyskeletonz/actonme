@@ -5,24 +5,26 @@ import axios from 'axios';
 class ActionList extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      actionItems: []
-    };
+    this.actionItems = [];
   }
 
-  componentDidMount() {
-    axios.get('api/actionitems/').then(res => {
-      const actionItems = res.data;
-      this.setState({ actionItems });
-    }) 
+  componentWillMount() {
+    axios.get("api/"+this.props.view+"/?orderby="+this.props.orderBy).then(res => {
+      this.actionItems = res.data;
+    });
+  }
+
+  componentDidUpdate() {
+    axios.get("api/"+this.props.view+"/?orderby="+this.props.orderBy).then(res => {
+        this.actionItems = res.data;
+    });
   }
 
   render() {
     return(
       <ul>
         {
-          this.state.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
+          this.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
         }
       </ul>
     );
