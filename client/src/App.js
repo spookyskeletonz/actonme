@@ -12,6 +12,7 @@ class App extends Component {
     }
 
     this.handleOrderClick = this.handleOrderClick.bind(this);
+    this.handleViewClick = this.handleViewClick.bind(this);
   }
 
   handleOrderClick(order) {
@@ -20,15 +21,29 @@ class App extends Component {
     });
   }
 
+  handleViewClick(clickedView) {
+    this.setState({
+      view: clickedView 
+    });
+  }
+
   render() {
     return (
       <div className="App">
-      <Button.Group>
-        <Button onClick={this.handleOrderClick.bind(this,"due")}>Due Date</Button>
-        <Button.Or />
-        <Button onClick={this.handleOrderClick.bind(this,"actor")}>Actor</Button>
-        <Button.Or />
-        <Button onClick={this.handleOrderClick.bind(this,"posted")}>Post Date</Button>
+        <Button.Group>
+          <Button onClick={this.handleOrderClick.bind(this,"due")}>Due Date</Button>
+          <Button.Or />
+          <Button onClick={this.handleOrderClick.bind(this,"actor")}>Actor</Button>
+          <Button.Or />
+          <Button onClick={this.handleOrderClick.bind(this,"posted")}>Post Date</Button>
+        </Button.Group> 
+        <br />
+        <Button.Group>
+          <Button onClick={this.handleViewClick.bind(this,"actionitems")}>All</Button>
+          <Button.Or />
+          <Button onClick={this.handleViewClick.bind(this,"complete")}>Completed</Button>
+          <Button.Or />
+          <Button onClick={this.handleViewClick.bind(this,"incomplete")}>Incomplete</Button>
         </Button.Group> 
         <ActionList orderBy={this.state.orderBy} view={this.state.view}/>
       </div>

@@ -5,26 +5,34 @@ import axios from 'axios';
 class ActionList extends Component {
   constructor(props) {
     super(props);
-    this.actionItems = [];
+    this.state = {
+      actionItems: [],
+      show: false
+    }
   }
 
-  componentWillMount() {
-    axios.get("api/"+this.props.view+"/?orderby="+this.props.orderBy).then(res => {
-      this.actionItems = res.data;
-    });
+  componentWillReceiveProps(nextProps) {
+    this.setState({ show: false }) 
+    this.updateList(nextProps); 
   }
 
-  componentDidUpdate() {
-    axios.get("api/"+this.props.view+"/?orderby="+this.props.orderBy).then(res => {
-        this.actionItems = res.data;
+  componentDidMount() {
+    this.updateList(this.props);
+  }
+
+  updateList(nextProps) {
+    axios.get("api/"+nextProps.view+"/?orderby="+nextProps.orderBy).then(res => {
+      const actionItems = res.data;
+      this.setState({ actionItems, show: true });
     });
   }
 
   render() {
     return(
       <ul>
-        {
-          this.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
+        {this.props.orderBy} {this.props.view}
+        {this.state.show === true &&
+          this.state.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
         }
       </ul>
     );
