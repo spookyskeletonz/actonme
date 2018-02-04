@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button } from 'semantic-ui-react'
-import ActionList from './ActionList'
+import ActionList from './ActionList';
+import Order from './Order';
+import View from './View';
+import { Header } from 'semantic-ui-react';
 
 class App extends Component {
   constructor(props) {
@@ -30,21 +32,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Button.Group>
-          <Button onClick={this.handleOrderClick.bind(this,"due")}>Due Date</Button>
-          <Button.Or />
-          <Button onClick={this.handleOrderClick.bind(this,"actor")}>Actor</Button>
-          <Button.Or />
-          <Button onClick={this.handleOrderClick.bind(this,"posted")}>Post Date</Button>
-        </Button.Group> 
-        <br />
-        <Button.Group>
-          <Button onClick={this.handleViewClick.bind(this,"actionitems")}>All</Button>
-          <Button.Or />
-          <Button onClick={this.handleViewClick.bind(this,"complete")}>Completed</Button>
-          <Button.Or />
-          <Button onClick={this.handleViewClick.bind(this,"incomplete")}>Incomplete</Button>
-        </Button.Group> 
+        <Header size="huge">ACTONME</Header>
+        <Order order={this.state.orderBy} handleOrderClick={this.handleOrderClick} />
+        <p></p>
+        <View view={this.state.view} handleViewClick={this.handleViewClick} />
+        <p></p>
         <ActionList orderBy={this.state.orderBy} view={this.state.view}/>
       </div>
     );
