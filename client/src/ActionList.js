@@ -26,6 +26,10 @@ class ActionList extends Component {
     });
   }
 
+  newAction() {
+    this.updateList(this.props);
+  }
+
   render() {
     return(
       <ul>
