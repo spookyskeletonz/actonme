@@ -5,7 +5,6 @@ import (
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
-	"time"
 )
 
 func getActionItems(c *gin.Context) {
@@ -38,15 +37,13 @@ func createActionItem(c *gin.Context) {
 	log.Println("creating action item")
 	var item ActionItem
 	var err error
-	item.Action = c.PostForm("action")
-	item.Actor = c.PostForm("actor")
-	item.Creator = c.PostForm("creator")
-	item.Due, _ = time.Parse(timeLayout, c.PostForm("due"))
-	item.Posted = time.Now()
-
-	err = dbmap.Insert(&item)
-	checkErr(err, "insert failed")
-	c.JSON(http.StatusCreated, item)
+	if c.BindJSON(&item) == nil {
+		a := newActionItem(item.Action, item.Due, item.Actor, item.Creator)
+		log.Printf(a.Action)
+		err = dbmap.Insert(&a)
+		checkErr(err, "insert failed")
+		c.JSON(http.StatusCreated, item)
+	}
 }
 
 func completeActionItem(c *gin.Context) {

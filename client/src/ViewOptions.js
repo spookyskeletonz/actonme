@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 
-class View extends Component{
+class ViewOptions extends Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ class View extends Component{
 
   render() {
     return(
-      <div className="View">
+      <div className="ViewOptions">
         <Button.Group>
           <Button toggle active={(this.state.active === "actionitems")} onClick={this.handleClick.bind(this,"actionitems")}>All</Button>
           <Button.Or />
@@ -29,4 +29,4 @@ class View extends Component{
   }
 }
 
-export default View;
+export default ViewOptions;

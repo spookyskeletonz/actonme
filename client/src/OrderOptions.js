@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
 
-class Order extends Component{
+class OrderOptions extends Component{
 
   constructor(props) {
     super(props);
@@ -17,7 +17,7 @@ class Order extends Component{
 
   render() {
     return(
-      <div className="Order">
+      <div className="OrderOptions">
         <Button.Group>
           <Button toggle active={(this.state.active === "due")} onClick={this.handleClick.bind(this,"due")}>Due Date</Button>
           <Button.Or />
@@ -31,4 +31,4 @@ class Order extends Component{
   
 }
 
-export default Order;
+export default OrderOptions;

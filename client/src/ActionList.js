@@ -1,4 +1,5 @@
 import React, {Component } from 'react';
+import MakeAction from './MakeAction';
 import axios from 'axios';
 
 class ActionList extends Component {
@@ -32,12 +33,14 @@ class ActionList extends Component {
 
   render() {
     return(
-      <ul>
-        {this.props.orderBy} {this.props.view}
-        {this.state.show === true &&
-          this.state.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
-        }
-      </ul>
+      <div className="ActionList">
+        <MakeAction />
+        <ul>
+          {this.state.show === true && 
+            this.state.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
+          }
+        </ul>
+      </div>
     );
   }
 }

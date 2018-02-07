@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import ActionList from './ActionList';
-import Order from './Order';
-import View from './View';
+import OrderOptions from './OrderOptions';
+import ViewOptions from './ViewOptions';
 import { Header } from 'semantic-ui-react';
 
 class App extends Component {
@@ -33,9 +33,9 @@ class App extends Component {
     return (
       <div className="App">
         <Header size="huge">ACTONME</Header>
-        <Order order={this.state.orderBy} handleOrderClick={this.handleOrderClick} />
+        <OrderOptions order={this.state.orderBy} handleOrderClick={this.handleOrderClick} />
         <p></p>
-        <View view={this.state.view} handleViewClick={this.handleViewClick} />
+        <ViewOptions view={this.state.view} handleViewClick={this.handleViewClick} />
         <p></p>
         <ActionList orderBy={this.state.orderBy} view={this.state.view}/>
       </div>
