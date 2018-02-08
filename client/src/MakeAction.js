@@ -8,10 +8,10 @@ class MakeAction extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      action:  " ",
+      action:  "",
       due:     moment(),
-      actor:   " ",
-      creator: " "
+      actor:   "",
+      creator: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,19 +39,20 @@ class MakeAction extends Component{
       actor: this.state.actor,
       creator: this.state.creator
     });
-    console.log(data);
     axios.post("api/actionitems/",data, {
       headers: {
         'Content-Type': 'application/json'
       }
     }
-    ); 
+    ).then(res => { 
+      this.props.refreshList();
+    });
   }
 
   render() {
     return(
       <div className="MakeAction">
-        <Header size="small">Create Action</Header>
+      <Header size="small">Create Action</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Input fluid label="Actor" name="actor" value={this.state.actor} placeholder="Nicholas Cage" onChange={this.handleChange} />
