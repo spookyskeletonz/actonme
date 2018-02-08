@@ -37,7 +37,7 @@ class ActionList extends Component {
         <MakeAction />
         <ul>
           {this.state.show === true && 
-            this.state.actionItems.map(item => <li key={item.Id}>{item.Action}: {item.Actor}</li>)
+            this.state.actionItems.map(item => <li key={item.id}>{item.action}: {item.actor}</li>)
           }
         </ul>
       </div>

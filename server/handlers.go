@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 	"log"
@@ -36,13 +37,16 @@ func getActionItem(c *gin.Context) {
 func createActionItem(c *gin.Context) {
 	log.Println("creating action item")
 	var item ActionItem
-	var err error
-	if c.BindJSON(&item) == nil {
+	log.Println(c.Keys)
+	err := c.BindJSON(&item)
+	if err == nil {
+		fmt.Println(item.Actor + " " + item.Action + " asdasdasd\n")
 		a := newActionItem(item.Action, item.Due, item.Actor, item.Creator)
-		log.Printf(a.Action)
 		err = dbmap.Insert(&a)
 		checkErr(err, "insert failed")
 		c.JSON(http.StatusCreated, item)
+	} else {
+		log.Println("Error in post request: ", err)
 	}
 }
 
