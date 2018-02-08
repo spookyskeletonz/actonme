@@ -43,10 +43,13 @@ class ActionList extends Component {
     return(
       <div className="ActionList">
         <MakeAction refreshList={this.refreshList} />
-        <Card.Group>
+        <Card.Group itemsPerRow={1}>
         {
           this.state.actionItems.map(item => 
-            <Action key={item.id} due={item.due} actor={item.actor} posted={item.posted} creator={item.creator} action={item.action} completed={item.completed} />
+            <Action key={item.id} refreshList={this.refreshList}
+              id={item.id} due={item.due} actor={item.actor} 
+              posted={item.posted} creator={item.creator} 
+              action={item.action} completed={item.completed} />
           )
         }
         </Card.Group>
