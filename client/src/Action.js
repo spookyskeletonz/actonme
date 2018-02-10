@@ -37,6 +37,13 @@ class Action extends Component {
   }
 
   render(){
+    let action =  null;
+    if(this.state.completedVisual === true) {
+      action = (<s>{this.props.action}</s>); 
+    } else {
+      action = this.props.action;
+    }
+
     return(
       <Card>
       <Card.Header>
@@ -48,7 +55,7 @@ class Action extends Component {
           Created By: {this.props.creator}, Posted On: {this.props.posted}
         </Card.Meta>
         <Card.Description>
-          {this.props.action}
+          {action}
           <p/>
           <b>Due: {this.props.due}</b>
         </Card.Description>
