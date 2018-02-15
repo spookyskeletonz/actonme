@@ -1,5 +1,4 @@
 import React, {Component } from 'react';
-import MakeAction from './MakeAction';
 import axios from 'axios';
 import { Card } from 'semantic-ui-react';
 import Action from './Action';

@@ -15,7 +15,6 @@ class Action extends Component {
 
     this.handleFlowClick = this.handleFlowClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
-    console.log(this.state.inprogress);
     if(this.state.completed){ this.state.flowButton = "Undo Complete";
     }else if(this.state.inprogress){ this.state.flowButton = "Complete";
     }else{ this.state.flowButton = "Start";}
@@ -34,7 +33,7 @@ class Action extends Component {
           inprogess: !this.state.inprogress
         });
       });
-    } else if(!this.state.completed && this.state.inprogess){
+    } else if(!this.state.completed && this.state.inprogress){
       axios.post("api/complete/"+this.props.id).then(res => {
         this.setState({
           completed: !this.state.completed,
@@ -48,7 +47,10 @@ class Action extends Component {
           inprogess: !this.state.inprogress
         });
       });
-    } 
+    } else {
+      console.log("complete? : " + this.state.completed);
+      console.log("inprogress? : " + this.state.inprogress);
+    }
   }
 
   render(){

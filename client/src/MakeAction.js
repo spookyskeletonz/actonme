@@ -55,11 +55,12 @@ class MakeAction extends Component{
       <Header size="small">Create Action</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths='equal'>
-            <Form.Input fluid label="Actor" name="actor" value={this.state.actor} placeholder="Nicholas Cage" onChange={this.handleChange} />
+            <Form.Input fluid label="Actor" name="actor" value={this.state.actor} placeholder="Nick Cage" onChange={this.handleChange} />
             <Form.Input fluid label="Creator" name="creator" value={this.state.creator} placeholder="God" onChange={this.handleChange} />
           </Form.Group>
           <Form.TextArea label="Action" name="action" value={this.state.action} placeholder="Return souls to hell as the Ghost Rider" onChange={this.handleChange} />
           <DatePicker  name="due" selected={this.state.due} onChange={this.handleDateChange} dateFormat="DD-MM-YYYY" />
+          <p/>
         <Form.Button content='Submit'/>
         </Form>
       </div>
