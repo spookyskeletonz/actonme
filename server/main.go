@@ -35,6 +35,11 @@ func main() {
 			incompleteActionItems.GET("/", getIncompleteActionItems)
 			incompleteActionItems.POST("/:id", incompleteActionItem)
 		}
+		inProgressActionItems := api.Group("/inprogress")
+		{
+			inProgressActionItems.GET("/", getInProgressActionItems)
+			inProgressActionItems.POST("/:id", setInProgressActionItem)
+		}
 		deleteActionItems := api.Group("/delete")
 		{
 			deleteActionItems.POST("/:id", deleteActionItem)

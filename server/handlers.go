@@ -15,7 +15,7 @@ func getActionItems(c *gin.Context) {
 	_, err = dbmap.Select(&items, "select * from actionitems order by "+orderBy)
 	if err != nil {
 		c.JSON(http.StatusNotFound, items)
-		return
+		log.Println(err.Error())
 	}
 	c.JSON(http.StatusOK, items)
 }
@@ -59,6 +59,55 @@ func completeActionItem(c *gin.Context) {
 		return
 	}
 	item.Completed = true
+	item.Inprogress = false
+	count, err = dbmap.Update(&item)
+	if count == 0 {
+		c.JSON(http.StatusNotFound, nil)
+	}
+	if err != nil {
+		c.JSON(http.StatusBadRequest, nil)
+		return
+	}
+	c.JSON(http.StatusOK, item)
+}
+
+func setInProgressActionItem(c *gin.Context) {
+	log.Println("setting item in progress")
+	var item ActionItem
+	id := c.Params.ByName("id")
+	var err error
+	var count int64
+	err = dbmap.SelectOne(&item, "select * from actionitems where id = "+id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, nil)
+		return
+	}
+	item.Inprogress = true
+	item.Completed = false
+	count, err = dbmap.Update(&item)
+	if count == 0 {
+		c.JSON(http.StatusNotFound, nil)
+	}
+	if err != nil {
+		c.JSON(http.StatusBadRequest, nil)
+		return
+	}
+	c.JSON(http.StatusOK, item)
+}
+
+func unSetInProgressActionItem(c *gin.Context) {
+	log.Println("setting item out of progress")
+	var item ActionItem
+	id := c.Params.ByName("id")
+	var err error
+	var count int64
+	err = dbmap.SelectOne(&item, "select * from actionitems where id = "+id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, nil)
+		return
+	}
+	item.Inprogress = false
+	item.Completed = false
 	count, err = dbmap.Update(&item)
 	if count == 0 {
 		c.JSON(http.StatusNotFound, nil)
@@ -71,7 +120,7 @@ func completeActionItem(c *gin.Context) {
 }
 
 func incompleteActionItem(c *gin.Context) {
-	log.Println("setting item to incomplete")
+	log.Println("setting item to inprogress")
 	var item ActionItem
 	id := c.Params.ByName("id")
 	var err error
@@ -82,6 +131,7 @@ func incompleteActionItem(c *gin.Context) {
 		return
 	}
 	item.Completed = false
+	item.Inprogress = true
 	count, err = dbmap.Update(&item)
 	if count == 0 {
 		c.JSON(http.StatusNotFound, nil)
@@ -111,7 +161,20 @@ func getIncompleteActionItems(c *gin.Context) {
 	orderBy := c.DefaultQuery("orderby", "due")
 	var items []ActionItem
 	var err error
-	_, err = dbmap.Select(&items, "select * from actionitems where completed = false order by "+orderBy)
+	_, err = dbmap.Select(&items, "select * from actionitems where inprogress = false and completed = false order by "+orderBy)
+	if err != nil {
+		c.JSON(http.StatusNotFound, items)
+		return
+	}
+	c.JSON(http.StatusOK, items)
+}
+
+func getInProgressActionItems(c *gin.Context) {
+	log.Println("getting in porgress items")
+	orderBy := c.DefaultQuery("orderby", "due")
+	var items []ActionItem
+	var err error
+	_, err = dbmap.Select(&items, "select * from actionitems where inprogress = true order by "+orderBy)
 	if err != nil {
 		c.JSON(http.StatusNotFound, items)
 		return
