@@ -25,7 +25,7 @@ class ActionList extends Component {
     axios.get("api/"+nextProps.view+"/?orderby="+nextProps.orderBy).then(res => {
       const actionItems = res.data;
       this.setState({ actionItems });
-    });
+      });
   }
 
   refreshList() {
@@ -42,14 +42,13 @@ class ActionList extends Component {
   render() {
     return(
       <div className="ActionList">
-        <MakeAction refreshList={this.refreshList} />
         <Card.Group itemsPerRow={1}>
         {
           this.state.actionItems.map(item => 
             <Action key={item.id} refreshList={this.refreshList}
               id={item.id} due={item.due} actor={item.actor} 
               posted={item.posted} creator={item.creator} 
-              action={item.action} completed={item.completed} />
+              action={item.action} completed={item.completed} inprogress={item.inprogress}/>
           )
         }
         </Card.Group>

@@ -8,10 +8,17 @@ class Action extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      completedVisual: this.props.completed
+      completed: this.props.completed, 
+      inprogress: this.props.inprogress,
+      flowButton: ""
     }
-    this.handleCompleteClick = this.handleCompleteClick.bind(this);
+
+    this.handleFlowClick = this.handleFlowClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    console.log(this.state.inprogress);
+    if(this.state.completed){ this.state.flowButton = "Undo Complete";
+    }else if(this.state.inprogress){ this.state.flowButton = "Complete";
+    }else{ this.state.flowButton = "Start";}
   }
 
   handleDeleteClick() {
@@ -20,30 +27,38 @@ class Action extends Component {
     })
   }
 
-  handleCompleteClick() {
-    if(!this.state.completedVisual){
+  handleFlowClick() {
+    if(!this.state.completed && !this.state.inprogress){
+      axios.post("api/inprogress/"+this.props.id).then(res => {
+        this.setState({
+          inprogess: !this.state.inprogress
+        });
+      });
+    } else if(!this.state.completed && this.state.inprogess){
       axios.post("api/complete/"+this.props.id).then(res => {
         this.setState({
-          completedVisual: !this.state.completedVisual
+          completed: !this.state.completed,
+          inprogess: !this.state.inprogress
         });
       });
-    } else {
+    } else if(this.state.completed){
       axios.post("api/incomplete/"+this.props.id).then(res => {
         this.setState({
-          completedVisual: !this.state.completedVisual
+          completed: !this.state.completed,
+          inprogess: !this.state.inprogress
         });
       });
-    }
+    } 
   }
 
   render(){
     let action =  null;
-    if(this.state.completedVisual === true) {
+    if(this.state.completed === true) {
       action = (<s>{this.props.action}</s>); 
     } else {
       action = this.props.action;
     }
-
+          
     return(
       <Card>
       <Card.Header>
@@ -61,7 +76,7 @@ class Action extends Component {
         </Card.Description>
         <Card.Content extra>
           <div className='ui two buttons'>
-            <Button onClick={this.handleCompleteClick} basic color='green'>{this.state.completedVisual === false ? "Complete" : "Undo Complete"}</Button>
+            <Button onClick={this.handleFlowClick} basic color='green'>{this.state.flowButton}</Button>
             <Button onClick={this.handleDeleteClick} basic color='red'>Delete</Button>
           </div>
         </Card.Content>
