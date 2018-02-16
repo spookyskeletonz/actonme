@@ -34,17 +34,13 @@ class ActionList extends Component {
     });
   }
 
-  newAction() {
-    this.updateList(this.props);
-  }
-
   render() {
     return(
       <div className="ActionList">
         <Card.Group itemsPerRow={1}>
         {
           this.state.actionItems.map(item => 
-            <Action key={item.id} refreshList={this.refreshList}
+            <Action key={item.id} refreshLists={this.props.refreshLists} refreshList={this.refreshList}
               id={item.id} due={item.due} actor={item.actor} 
               posted={item.posted} creator={item.creator} 
               action={item.action} completed={item.completed} inprogress={item.inprogress}/>

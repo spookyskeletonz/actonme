@@ -35,13 +35,12 @@ class App extends Component {
         <p/>
         <p/>
         <Header size="huge">ACTONME</Header>
-        <Divider />
         <p/>
         <p/>
         <div ref={this.handleContextRef}>
           <Grid columns={2} divided>
             <Grid.Column width={3}>
-              <Sticky pushing context={contextRef} >
+              <Sticky offset={20} context={contextRef} >
                 <OrderMakeSegment orderBy={this.state.orderBy} refreshList={this.refreshLists} handleOrderClick={this.handleOrderClick} />              
               </Sticky>
             </Grid.Column>

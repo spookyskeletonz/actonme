@@ -22,7 +22,7 @@ class Action extends Component {
 
   handleDeleteClick() {
     axios.post("api/delete/"+this.props.id).then(res => {
-      this.props.refreshList();
+        this.props.refreshList();
     })
   }
 
@@ -32,6 +32,7 @@ class Action extends Component {
         this.setState({
           inprogess: !this.state.inprogress
         });
+        this.props.refreshLists();
       });
     } else if(!this.state.completed && this.state.inprogress){
       axios.post("api/complete/"+this.props.id).then(res => {
@@ -39,6 +40,7 @@ class Action extends Component {
           completed: !this.state.completed,
           inprogess: !this.state.inprogress
         });
+        this.props.refreshLists();
       });
     } else if(this.state.completed){
       axios.post("api/incomplete/"+this.props.id).then(res => {
@@ -46,10 +48,8 @@ class Action extends Component {
           completed: !this.state.completed,
           inprogess: !this.state.inprogress
         });
+        this.props.refreshLists();
       });
-    } else {
-      console.log("complete? : " + this.state.completed);
-      console.log("inprogress? : " + this.state.inprogress);
     }
   }
 
