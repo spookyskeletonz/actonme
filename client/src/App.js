@@ -29,6 +29,7 @@ class App extends Component {
   handleContextRef = contextRef => this.setState({ contextRef })
 
   render() {
+    document.body.style = "background: #085078; background: -webkit-linear-gradient(to bottom, #085078, #85d8ce); background: linear-gradient(to bottom, #085078, #85d8ce); background-repeat: repeat-x; background-size: cover; background-attachment: fixed;";
     const { contextRef } = this.state;
     return (
       <div className="App">
