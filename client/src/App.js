@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import OrderMakeSegment from './OrderMakeSegment';
 import ActionListSegment from './ActionListSegment';
-import {Sticky, Grid, Segment, Header, Divider} from 'semantic-ui-react';
+import {Sticky, Grid} from 'semantic-ui-react';
 
 class App extends Component {
   constructor(props) {
@@ -33,11 +33,7 @@ class App extends Component {
     const { contextRef } = this.state;
     return (
       <div className="App">
-        <p/>
-        <p/>
-        <Header size="huge">ACTONME</Header>
-        <p/>
-        <p/>
+        <h1 className="LargeHeader">ACTONME</h1>
         <div ref={this.handleContextRef}>
           <Grid columns={2} divided>
             <Grid.Column width={3}>

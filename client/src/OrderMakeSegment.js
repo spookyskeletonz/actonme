@@ -4,10 +4,6 @@ import MakeAction from './MakeAction';
 import { Segment, Divider } from 'semantic-ui-react';
 
 class OrderMakeSegment extends Component {
-  constructor(props) {
-    super(props);
-
-  }
 
   render() {
     return(

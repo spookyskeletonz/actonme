@@ -2,6 +2,13 @@
     text-align: center;
 }
 
+.LargeHeader {
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    font-weight: 100;
+    letter-spacing: 20px;
+    font-size: xx-large;
+}
 
 
 .App-logo {

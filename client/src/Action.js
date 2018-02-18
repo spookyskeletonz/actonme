@@ -15,6 +15,7 @@ class Action extends Component {
 
     this.handleFlowClick = this.handleFlowClick.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+
     if(this.state.completed){ this.state.flowButton = "Undo Complete";
     }else if(this.state.inprogress){ this.state.flowButton = "Complete";
     }else{ this.state.flowButton = "Start";}
@@ -39,7 +40,7 @@ class Action extends Component {
         this.setState({
           completed: !this.state.completed,
           inprogess: !this.state.inprogress
-        });
+          });
         this.props.refreshLists();
       });
     } else if(this.state.completed){
@@ -60,9 +61,15 @@ class Action extends Component {
     } else {
       action = this.props.action;
     }
-          
+
+    let cardColor = "";
+    if(this.state.completed === true) {
+      cardColor = "green";
+    } else if(this.state.inprogress) {
+      cardColor = "blue";
+    }          
     return(
-      <Card>
+      <Card color={cardColor}>
       <Card.Header>
           <p/>
           <Avatar size={40} round={true} name={this.props.actor} />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ActionList from './ActionList';
+import './ActionListSegment.css';
 import { Grid, Header } from 'semantic-ui-react';
 
 class ActionListSegment extends Component {
@@ -17,15 +18,15 @@ class ActionListSegment extends Component {
     return(
       <Grid columns={3}>
         <Grid.Column>
-          <Header>To Do</Header>
+          <h2 className="Header">To Do</h2>
           <ActionList refreshLists={this.refreshLists} orderBy={this.props.orderBy} view="incomplete"/>
         </Grid.Column>
         <Grid.Column>
-          <Header>In Progress</Header>
+          <h2 className="Header">In Progress</h2>
           <ActionList refreshLists={this.refreshLists} orderBy={this.props.orderBy} view="inprogress"/>
         </Grid.Column>
         <Grid.Column>
-          <Header>Completed</Header>
+          <h2 className="Header">Completed</h2>
           <ActionList refreshLists={this.refreshLists} orderBy={this.props.orderBy} view="complete"/>
         </Grid.Column>
       </Grid>
