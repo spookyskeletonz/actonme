@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Divider, Card, Button, Header } from 'semantic-ui-react';
 import Avatar from 'react-avatar';
 import axios from 'axios';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
 class Action extends Component {
 
@@ -74,22 +76,32 @@ class Action extends Component {
     let formattedDue = this.props.due;
     formattedDue = formattedDue.replace(/T.*/, "");
 
+    const moment = extendMoment(Moment);
+    
+    let due = moment(this.props.due);
+    let daysRemaining = moment().range(moment(), due).diff('days');
+
     return(
       <Card color={cardColor}>
       <Card.Header>
           <p/>
           <Avatar style={{float: "right", marginRight: "10px"}} round size={50} name={this.props.actor} />
           <Header style={{textAlign: "left", marginLeft: "10px"}} size="medium">{this.props.actor}</Header>
+          <div  style={{textAlign: "left", marginLeft: "10px"}}><b>Due: {formattedDue} (
+          {daysRemaining <= 5 ? 
+            (<span style={{color: "red"}}>{daysRemaining} days left</span>)
+           : (<span>{daysRemaining} days left</span>)
+          }
+          )</b></div>
         </Card.Header>
-        <Card.Meta style={{float: "left", textAlign: "left", marginLeft: "10px"}}>
-          Created By: {this.props.creator}<p/>Posted On: {formattedPosted}
-        </Card.Meta>
         <Divider hidden />
         <Card.Description>
           <div style={{fontSize: 15}}>{action}</div>
-          <Divider hidden />
-          <div  style={{textAlign: "left", marginLeft: "10px"}}><b>Due: {formattedDue}</b></div>
         </Card.Description>
+        <Divider hidden />
+        <Card.Meta style={{float: "left", textAlign: "left", marginLeft: "10px"}}>
+          Created By: {this.props.creator}<p/>Posted On: {formattedPosted}
+        </Card.Meta>
         <Card.Content extra>
           <div className='ui two buttons'>
             <Button onClick={this.handleFlowClick} basic color='green'>{this.state.flowButton}</Button>

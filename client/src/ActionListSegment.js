@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ActionList from './ActionList';
 import './ActionListSegment.css';
-import { Grid, Header } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 
 class ActionListSegment extends Component {
   constructor(props) {
