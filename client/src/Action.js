@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, Header } from 'semantic-ui-react';
+import { Divider, Card, Button, Header } from 'semantic-ui-react';
 import Avatar from 'react-avatar';
 import axios from 'axios';
 
@@ -68,20 +68,27 @@ class Action extends Component {
     } else if(this.state.inprogress) {
       cardColor = "blue";
     }          
+
+    let formattedPosted = this.props.posted;
+    formattedPosted = formattedPosted.replace(/T.*/, "");
+    let formattedDue = this.props.due;
+    formattedDue = formattedDue.replace(/T.*/, "");
+
     return(
       <Card color={cardColor}>
       <Card.Header>
           <p/>
-          <Avatar size={40} round={true} name={this.props.actor} />
-          <Header size="medium">{this.props.actor}</Header>
+          <Avatar style={{float: "right", marginRight: "10px"}} round size={50} name={this.props.actor} />
+          <Header style={{textAlign: "left", marginLeft: "10px"}} size="medium">{this.props.actor}</Header>
         </Card.Header>
-        <Card.Meta>
-          Created By: {this.props.creator}, Posted On: {this.props.posted}
+        <Card.Meta style={{float: "left", textAlign: "left", marginLeft: "10px"}}>
+          Created By: {this.props.creator}<p/>Posted On: {formattedPosted}
         </Card.Meta>
+        <Divider hidden />
         <Card.Description>
-          {action}
-          <p/>
-          <b>Due: {this.props.due}</b>
+          <div style={{fontSize: 15}}>{action}</div>
+          <Divider hidden />
+          <div  style={{textAlign: "left", marginLeft: "10px"}}><b>Due: {formattedDue}</b></div>
         </Card.Description>
         <Card.Content extra>
           <div className='ui two buttons'>
