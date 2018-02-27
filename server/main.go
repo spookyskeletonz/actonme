@@ -7,6 +7,7 @@ import (
 	_ "github.com/lib/pq"
 	"gopkg.in/gorp.v1"
 	"log"
+	"os"
 )
 
 var dbmap = initDb()
@@ -51,8 +52,8 @@ func main() {
 func initDb() *gorp.DbMap {
 	//will be changing this to read from sys env rather than hard coded password when dockerising
 	dbCreds := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
-		"supermaster",
-		"password1",
+		os.Getenv("POSTGRES_USER"),
+		os.Getenv("POSTGRES_PASSWORD"),
 		"localhost",
 		"5432",
 		"actonme",

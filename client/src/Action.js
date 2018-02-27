@@ -64,22 +64,18 @@ class Action extends Component {
       action = this.props.action;
     }
 
-    let cardColor = "";
+    let cardColor = "white";
     if(this.state.completed === true) {
       cardColor = "green";
     } else if(this.state.inprogress) {
       cardColor = "blue";
     }          
 
-    let formattedPosted = this.props.posted;
-    formattedPosted = formattedPosted.replace(/T.*/, "");
-    let formattedDue = this.props.due;
-    formattedDue = formattedDue.replace(/T.*/, "");
-
     const moment = extendMoment(Moment);
+    let due = moment(this.props.due).format('Do MMM YY');
+    let posted = moment(this.props.posted).format('Do MMM YY');
     
-    let due = moment(this.props.due);
-    let daysRemaining = moment().range(moment(), due).diff('days');
+    let daysRemaining = moment().range(moment(), moment(this.props.due)).diff('days');
 
     return(
       <Card color={cardColor}>
@@ -87,20 +83,20 @@ class Action extends Component {
           <p/>
           <Avatar style={{float: "right", marginRight: "10px"}} round size={50} name={this.props.actor} />
           <Header style={{textAlign: "left", marginLeft: "10px"}} size="medium">{this.props.actor}</Header>
-          <div  style={{textAlign: "left", marginLeft: "10px"}}><b>Due: {formattedDue} (
+          <div  style={{textAlign: "left", marginLeft: "10px"}}><b>Due: {due} (
           {daysRemaining <= 5 ? 
-            (<span style={{color: "red"}}>{daysRemaining} days left</span>)
-           : (<span>{daysRemaining} days left</span>)
+            <span style={{color: "red"}}>{daysRemaining} days left</span>
+           : <span>{daysRemaining} days left</span>
           }
           )</b></div>
         </Card.Header>
         <Divider hidden />
         <Card.Description>
-          <div style={{fontSize: 15}}>{action}</div>
+          <div style={{textAlign: "left", marginLeft: "10px", fontSize: 15}}>{action}</div>
         </Card.Description>
         <Divider hidden />
         <Card.Meta style={{float: "left", textAlign: "left", marginLeft: "10px"}}>
-          Created By: {this.props.creator}<p/>Posted On: {formattedPosted}
+          Created By: {this.props.creator}<p/>Posted On: {posted}
         </Card.Meta>
         <Card.Content extra>
           <div className='ui two buttons'>

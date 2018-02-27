@@ -1,0 +1,24 @@
+version: '1'
+services:
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_USER=supermaster
+            - POSTGRES_PASSWORD=password1
+
+    server:
+        build: ./server
+        command: ./main
+        depends_on:
+            - "db"
+        environment:
+            - POSTGRES_USER=supermaster
+            - POSTGRES_PASSWORD=password1
+
+    client:
+        build: ./client
+        command: npm run dev
+        volumes:
+            - ./client:/usr/src/app
+            - usr/src/app/node_modules
+
