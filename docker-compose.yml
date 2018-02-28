@@ -14,6 +14,8 @@ services:
         environment:
             - POSTGRES_USER=supermaster
             - POSTGRES_PASSWORD=password1
+        ports:
+            - "9000:9000"
 
     client:
         build: ./client
@@ -22,5 +24,5 @@ services:
             - ./client:/usr/src/app
             - /usr/src/app/node_modules
         ports:
-            - "9000:3000"
+            - "8080:3000"
 

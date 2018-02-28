@@ -259,4 +259,19 @@ module.exports = {
   performance: {
     hints: false,
   },
+  // take advantage of docker linking containers to proxy requests
+  devServer: {
+    proxy: {
+      '/api/**': {
+        // take advantage of docker-compose linking containers - server is accessible with hostname server
+        target: 'http://server:9000',
+        secure: false
+      }
+    },
+    host: '0.0.0.0',
+    port: '9000',
+    watchOptions: {
+        poll: true
+    }
+  },
 };
