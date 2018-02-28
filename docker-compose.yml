@@ -1,4 +1,4 @@
-version: '1'
+version: '2'
 services:
     db:
         image: postgres
@@ -17,8 +17,10 @@ services:
 
     client:
         build: ./client
-        command: npm run dev
+        command: npm run start 
         volumes:
             - ./client:/usr/src/app
-            - usr/src/app/node_modules
+            - /usr/src/app/node_modules
+        ports:
+            - "9000:3000"
 
