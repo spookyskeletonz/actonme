@@ -54,9 +54,9 @@ func initDb() *gorp.DbMap {
 	dbCreds := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
 		os.Getenv("POSTGRES_USER"),
 		os.Getenv("POSTGRES_PASSWORD"),
-		"localhost",
+		"postgres",
 		"5432",
-		"actonme",
+		"postgres",
 	)
 
 	db, err := sql.Open("postgres", dbCreds)

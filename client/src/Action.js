@@ -64,7 +64,7 @@ class Action extends Component {
       action = this.props.action;
     }
 
-    let cardColor = "white";
+    let cardColor = "red";
     if(this.state.completed === true) {
       cardColor = "green";
     } else if(this.state.inprogress) {
