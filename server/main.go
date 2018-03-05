@@ -18,7 +18,9 @@ func main() {
 
 	r := gin.Default()
 
-	api := r.Group("/api/")
+	api := r.Group("/api/", gin.BasicAuth(gin.Accounts{
+		os.Getenv("GIN_ACCOUNT"): os.Getenv("GIN_PASSWORD"),
+	}))
 	{
 		actionItems := api.Group("/actionitems")
 		{
