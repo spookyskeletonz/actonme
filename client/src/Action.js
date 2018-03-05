@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Card, Button, Header } from 'semantic-ui-react';
+import { Divider, Card, Button, Header, Modal, Icon} from 'semantic-ui-react';
 import Avatar from 'react-avatar';
 import axios from 'axios';
 import Moment from 'moment';
@@ -101,7 +101,15 @@ class Action extends Component {
         <Card.Content extra>
           <div className='ui two buttons'>
             <Button onClick={this.handleFlowClick} basic color='green'>{this.state.flowButton}</Button>
-            <Button onClick={this.handleDeleteClick} basic color='red'>Delete</Button>
+            <Modal trigger={<Button basic color='red'>Delete</Button>} basic size='small' closeIcon>
+              <Header icon='trash outline' content = "Delete" />
+                <p>Are you sure you want to delete this task?</p>
+              <Modal.Actions>
+                <Button color='red' onClick={this.handleDeleteClick} inverted>
+                  <Icon name='trash' /> Yes
+                </Button>
+              </Modal.Actions>
+            </Modal>
           </div>
         </Card.Content>
       </Card>
