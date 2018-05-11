@@ -1,8 +1,9 @@
 actonme
 =======
 
+Live at http://actonme.ap-southeast-2.elasticbeanstalk.com/
+
     an action item manager written in react, golang for api with a postgres database
-    Live at http://actonme.ap-southeast-2.elasticbeanstalk.com/
 
 API ENDPOINTS
 ----------------
