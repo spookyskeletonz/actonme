@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Header } from 'semantic-ui-react';
+import { Form, Header, Icon, Transition } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import moment from 'moment';
@@ -11,7 +11,9 @@ class MakeAction extends Component{
       action:  "",
       due:     moment(),
       actor:   "",
-      creator: ""
+      creator: "",
+      submittedTick: false,
+      submittedCross: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -45,7 +47,23 @@ class MakeAction extends Component{
       }
     }
     ).then(res => { 
+      this.setState(
+      {
+        submittedTick: true
+      });
       this.props.refreshList();
+      this.setState({
+        submittedTick: false 
+      });
+    }
+    ).catch(err => {
+      this.setState(
+      {
+        submittedCross: true
+      });
+      this.setState({
+        submittedCross: false
+      });
     });
   }
 
@@ -61,7 +79,13 @@ class MakeAction extends Component{
           <Form.TextArea label="Action" name="action" value={this.state.action} placeholder="Return souls to hell as the Ghost Rider" onChange={this.handleChange} />
           <DatePicker  name="due" selected={this.state.due} onChange={this.handleDateChange} dateFormat="DD-MM-YYYY" />
           <p/>
-        <Form.Button content='Submit'/>
+          <Form.Button content='Submit'/>
+          <Transition visible={this.state.submittedTick} animation='scale' duration={700}>
+            <Icon size='big' color='green' name='check circle' />
+          </Transition>
+          <Transition visible={this.state.submittedCross} animation='scale' duration={700}>
+            <Icon size='big' color='red' name='remove circle' />
+          </Transition>
         </Form>
       </div>
     )

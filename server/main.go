@@ -52,7 +52,6 @@ func main() {
 }
 
 func initDb() *gorp.DbMap {
-	//will be changing this to read from sys env rather than hard coded password when dockerising
 	dbCreds := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",
 		os.Getenv("POSTGRES_USER"),
 		os.Getenv("POSTGRES_PASSWORD"),
